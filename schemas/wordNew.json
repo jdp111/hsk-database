@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://our.company.com/companyNew.schema.json",
+    "type": "array",
+    "items" : {
+        "type": "object",
+        "properties": {
+            "simplified": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 7
+            },
+            "traditional": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 10
+            },
+            "pinyin": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 30
+            },
+            "english": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+            }
+            
+        },
+        "additionalProperties": false,
+
+        "required": [ "simplified",
+            "traditional",
+            "pinyin",
+            "english"
+            ]
+    }
+    
+  }
+  
