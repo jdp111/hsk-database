@@ -166,15 +166,7 @@ class User {
 
     if( !sessionNo.rows[0]) throw new NotFoundError(`No user: ${username}`)
 
-    const stepUp = (sessionNo.rows[0].session_number ) % 10 + 1
-    const updateSession = await db.query(`
-        UPDATE users
-        SET session_number = $1
-        WHERE username = $2
-        RETURNING  session_number
-    `, [stepUp, username])
-
-    return updateSession.rows[0]
+    return sessionNo.rows[0]
 }
 
   /**
