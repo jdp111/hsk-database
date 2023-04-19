@@ -32,7 +32,7 @@ class Card {
    static async getByGroup(username, groupNumber){
 
         const res = await db.query(`
-            SELECT simplified, traditional, pinyin, english
+            SELECT simplified, traditional, pinyin, english, group_number
             FROM cards JOIN chinese_words
             ON cards.word_id = chinese_words.id
             WHERE (cards.username = $1) AND (cards.group_number = $2)
