@@ -17,9 +17,10 @@ class Card {
 
     static async getUserCards(username){
         const cards = await db.query(`
-            SELECT cards.group_number, chinese_words.simplified, chinese_words.traditional, chinese_words.pinyin, chinese_words.english
+            SELECT cards.word_id, cards.group_number, chinese_words.simplified, chinese_words.traditional, chinese_words.pinyin, chinese_words.english
             FROM cards JOIN chinese_words ON cards.word_id = chinese_words.id
             WHERE cards.username = $1
+            ORDER BY cards.word_id
             
         `, [username])
 

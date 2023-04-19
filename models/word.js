@@ -9,7 +9,17 @@ class Word {
     * searches for rows partially or fully matching the search term
     */
     static async find(term, searchBy) {
-
+        console.log(searchBy)
+        if (searchBy == 'lvl'){
+            console.log("inside")
+            const search = await db.query(
+                `SELECT * FROM chinese_words
+                WHERE (lvl = $1)
+                ORDER BY lvl`,
+                [term]
+            )
+            return search.rows
+        }
         const search = await db.query(
             `SELECT * FROM chinese_words
             WHERE ${searchBy} LIKE $1

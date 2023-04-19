@@ -54,12 +54,13 @@ router.post("/", ensureLoggedIn,ensureIsAdmin, async function (req, res, next) {
 router.get("/", async function (req, res, next) {
   try {
     if(!Object.values(req.query)[0]) throw new BadRequestError("URL must include query string that is one of: {'simplified', 'traditional', 'pinyin','english','lvl'}")
+    if(Object.keys(req.query)[0] == "lvl")     req.query.lvl = parseInt(req.query.lvl)
+    console.log(req.query.lvl)
     const validator = jsonschema.validate(req.query, wordSortSchema);
     if(!validator.valid){
         const errs = validator.errors.map(e => e.stack);
         throw new BadRequestError(errs);
     }
-
     if(Object.keys(req.query)[0] == "pinyin")  {req.query.pinyin = req.query.pinyin.toLowerCase()}
     if(Object.keys(req.query)[0] == "english")  req.query.english = req.query.english.toLowerCase()
     // fix this to lowercase all inputs
