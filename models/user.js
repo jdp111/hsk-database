@@ -152,6 +152,30 @@ class User {
     return user.username
   }
 
+  /**
+  * Session will be a number that cycles before each session
+  * options for session number are 0-9
+  * 
+  */
+  static async getInfo(username){
+
+    const sessionNo = await db.query(`
+        SELECT session_number FROM users
+        WHERE username = $1
+    `, [username])
+
+    if( !sessionNo.rows[0]) throw new NotFoundError(`No user: ${username}`)
+
+    const stepUp = (sessionNo.rows[0].session_number ) % 10 + 1
+    const updateSession = await db.query(`
+        UPDATE users
+        SET session_number = $1
+        WHERE username = $2
+        RETURNING  session_number
+    `, [stepUp, username])
+
+    return updateSession.rows[0]
+}
 
   /**
   * Session will be a number that cycles before each session

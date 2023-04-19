@@ -24,6 +24,16 @@ router.delete("/:username", ensureLoggedIn,ensureAdminOrUser, async function (re
   }
 });
 
+router.get("/:username", ensureLoggedIn, ensureAdminOrUser, async function (req, res, next){
+  try {
+    const username = req.params.username
+    const userInfo = await User.getInfo(username)
+    return res.json(userInfo)
+  } catch (err) {
+    return next(err)
+  }
+});
+
 router.put("/:username", ensureLoggedIn, ensureAdminOrUser, async function(req, res, next){
     try{
         const username = req.params.username

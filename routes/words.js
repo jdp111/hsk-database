@@ -55,7 +55,7 @@ router.get("/", async function (req, res, next) {
   try {
     if(!Object.values(req.query)[0]) throw new BadRequestError("URL must include query string that is one of: {'simplified', 'traditional', 'pinyin','english','lvl'}")
     if(Object.keys(req.query)[0] == "lvl")     req.query.lvl = parseInt(req.query.lvl)
-    console.log(req.query.lvl)
+    
     const validator = jsonschema.validate(req.query, wordSortSchema);
     if(!validator.valid){
         const errs = validator.errors.map(e => e.stack);
