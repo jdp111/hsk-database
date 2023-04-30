@@ -17,13 +17,13 @@
             },
             "pinyin": {
                 "type": "string",
-                "minLength": 2,
+                "minLength": 1,
                 "maxLength": 30
             },
             "english": {
                 "type": "string",
                 "minLength": 1,
-                "maxLength": 100
+                "maxLength": 200
             }
             
         },
